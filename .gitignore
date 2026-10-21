@@ -1,0 +1,28 @@
+# Dependencies
+node_modules/
+
+# Build output / caches
+dist/
+.vercel/
+.tanstack/
+.nitro/
+.output/
+*.tsbuildinfo
+
+# Platform / local artifacts
+.node_modules.lock
+attachments/
+screenshots/
+*.log
+
+# Editor / tooling
+.claude/
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Environment
+.env
+.env.*
+!.env.example

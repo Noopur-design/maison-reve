@@ -1,0 +1,391 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ivory: #f8f5ef;
+  --color-cream: #efe8de;
+  --color-beige: #e4d4c4;
+  --color-olive: #777d60;
+  --color-forest: #303421;
+  --color-brown: #795c49;
+  --color-blush: #e9d5cc;
+  --color-ink: #201f1b;
+  --color-muted: #777168;
+  --color-line: #ded7cc;
+  --font-sans: "Manrope", system-ui, sans-serif;
+  --font-serif: "Cormorant Garamond", "Times New Roman", serif;
+  --font-script: "Instrument Serif", Georgia, serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5.5rem;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    /* Guard against stray horizontal overflow at very narrow widths. `clip`
+       (not `hidden`) does not create a scroll container, so the sticky header
+       and anchor scrolling keep working. */
+    overflow-x: clip;
+  }
+
+  body {
+    margin: 0;
+    background: var(--color-ivory);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.6;
+    text-wrap: pretty;
+  }
+
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+
+  button:disabled {
+    cursor: not-allowed;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-olive);
+    outline-offset: 3px;
+  }
+
+  img {
+    max-width: 100%;
+    display: block;
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer components {
+  .wrap {
+    width: min(100% - 2rem, 76rem);
+    margin-inline: auto;
+  }
+
+  @media (min-width: 768px) {
+    .wrap {
+      width: min(100% - 3rem, 80rem);
+    }
+  }
+
+  .display {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    letter-spacing: -0.025em;
+    line-height: 0.96;
+    font-size: clamp(2.65rem, 5.4vw, 5.1rem);
+  }
+
+  .display-sm {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    line-height: 1.02;
+    font-size: clamp(2.05rem, 3.5vw, 3.45rem);
+  }
+
+  .serif {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    letter-spacing: -0.02em;
+  }
+
+  .script {
+    font-family: var(--font-script);
+    font-style: italic;
+    font-weight: 400;
+    line-height: 0.95;
+  }
+
+  .micro {
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+
+  .nav-link {
+    position: relative;
+    color: var(--color-muted);
+    font-size: 0.92rem;
+    padding-block: 0.35rem;
+  }
+
+  .nav-link:hover,
+  .nav-link.is-active {
+    color: var(--color-ink);
+  }
+
+  .nav-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 1px;
+    background: var(--color-ink);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 240ms ease;
+  }
+
+  .nav-link:hover::after,
+  .nav-link.is-active::after {
+    transform: scaleX(1);
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+    min-height: 2.85rem;
+    padding: 0.7rem 1.25rem;
+    border-radius: 999px;
+    border: 1px solid transparent;
+    font-size: 0.92rem;
+    font-weight: 600;
+    line-height: 1;
+    transition: transform 180ms ease, background 180ms ease, color 180ms ease;
+  }
+
+  .btn:hover {
+    transform: translateY(-1px);
+  }
+
+  .btn-solid {
+    background: var(--color-forest);
+    color: var(--color-ivory);
+    box-shadow: 0 1px 2px rgba(48, 52, 33, 0.12);
+  }
+
+  .btn-solid:hover {
+    background: #3c4229;
+    box-shadow: 0 8px 22px rgba(48, 52, 33, 0.24);
+  }
+
+  .btn-light {
+    background: var(--color-ivory);
+    color: var(--color-forest);
+  }
+
+  .btn-light:hover {
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.18);
+  }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--color-ink);
+    border-color: var(--color-line);
+  }
+
+  .btn-ghost:hover {
+    border-color: var(--color-brown);
+  }
+
+  .field {
+    width: 100%;
+    min-height: 3rem;
+    border: 1px solid var(--color-line);
+    background: var(--color-ivory);
+    color: var(--color-ink);
+    border-radius: 0.85rem;
+    padding: 0.75rem 0.95rem;
+    font: inherit;
+  }
+
+  .field:focus {
+    outline: 2px solid var(--color-olive);
+    outline-offset: 1px;
+  }
+
+  .hero-media {
+    width: min(100%, 32rem);
+    margin-inline: auto;
+  }
+
+  @media (min-width: 1024px) {
+    .hero-media {
+      margin-right: 0;
+      margin-left: auto;
+    }
+  }
+
+  .arch {
+    border-radius: 999px 999px 1.1rem 1.1rem;
+  }
+
+  .frame {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .frame img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .ratio-portrait {
+    aspect-ratio: 3 / 4;
+  }
+
+  .ratio-wide {
+    aspect-ratio: 16 / 9;
+  }
+
+  .ratio-photo {
+    aspect-ratio: 3 / 2;
+  }
+
+  .ratio-square {
+    aspect-ratio: 1;
+  }
+
+  .ratio-tall {
+    aspect-ratio: 4 / 5;
+  }
+
+  .zoom img {
+    transition: transform 700ms ease;
+  }
+
+  .zoom:hover img {
+    transform: scale(1.045);
+  }
+
+  .marquee-track {
+    animation: marquee 42s linear infinite;
+  }
+
+  .skip {
+    position: absolute;
+    left: 1rem;
+    top: -4rem;
+    z-index: 80;
+    background: var(--color-forest);
+    color: var(--color-ivory);
+    padding: 0.65rem 1rem;
+    border-radius: 999px;
+  }
+
+  .skip:focus {
+    top: 1rem;
+  }
+
+  /* Per-page entrance, retriggered by keying the wrapper on the pathname. */
+  .page-enter {
+    animation: page-enter 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .soft-fade {
+    animation: soft-fade 0.45s ease both;
+  }
+
+  /* Header gains depth once the page scrolls. */
+  .site-header {
+    background: var(--color-ivory);
+    transition:
+      box-shadow 240ms ease,
+      background-color 240ms ease,
+      border-color 240ms ease;
+  }
+
+  .site-header.is-scrolled {
+    background: color-mix(in srgb, var(--color-ivory) 82%, transparent);
+    backdrop-filter: saturate(1.1) blur(10px);
+    box-shadow: 0 6px 24px rgba(32, 31, 27, 0.07);
+  }
+}
+
+/* Scroll reveal — the hidden start state only applies where scripting is on,
+   so no-JS visitors and crawlers always get fully visible content. */
+@media (scripting: enabled) {
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition:
+      opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+    transition-delay: var(--reveal-delay, 0ms);
+    will-change: opacity, transform;
+  }
+
+  .reveal.is-in {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* Smaller display type on phones only (desktop/tablet keep their sizes). */
+@media (max-width: 639px) {
+  .display {
+    font-size: clamp(2rem, 9vw, 2.6rem);
+    line-height: 1.02;
+  }
+
+  .display-sm {
+    font-size: clamp(1.6rem, 7vw, 2rem);
+    line-height: 1.08;
+  }
+}
+
+@keyframes page-enter {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes soft-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
